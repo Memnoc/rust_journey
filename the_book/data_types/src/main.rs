@@ -65,4 +65,35 @@ fn main() {
     println!("The value of five hundred is {five_hundred}");
     println!("The value of six point four is {six_point_four}");
     println!("The value of one is {one}");
+
+    println!("== The Array Type ==");
+    let a = [1, 2, 3, 4, 5];
+    // NOTE: printing the values
+    for el in a {
+        println!("The value of a is {el}");
+    }
+
+    let months = [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December",
+    ];
+
+    for el in months {
+        println!("{el}");
+    }
+
+    let a: [i32; 5] = [1, 2, 3, 4, 5];
+    for el in a {
+        println!("{el}");
+    }
 }
