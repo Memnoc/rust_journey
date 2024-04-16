@@ -88,6 +88,12 @@ fn main() {
         "December",
     ];
 
+    // NOTE: accessing single elements
+    let first = months[0];
+    println!("The value of first is {first}");
+    let second = months[1];
+    println!("The value of first is {second}");
+
     for el in months {
         println!("{el}");
     }
