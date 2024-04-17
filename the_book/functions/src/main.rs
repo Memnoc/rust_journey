@@ -1,6 +1,15 @@
 fn main() {
     println!("== Functions ==");
 
+    // WARN: Statement vs Expressions
+    // let y = 8; is a Statement -> DO NOT return a value
+    // another_function() is an expression -> EVALUATE to a value
+    // Expressions can be part of statements
+    // FIX: Expressions do not usually have semicolons
+    // TODO: Why? If there is no assignment, like in a statement, there is no value
+    // returned and therefore, no binding is possible. Simple example is to bind an
+    // a statement to a variable -> ERROR
+
     // NOTE: calling another function
     another_function();
 
