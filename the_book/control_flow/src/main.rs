@@ -82,4 +82,16 @@ fn main() {
         count += 1;
     }
     println!("End count = {count}");
+
+    // INFO: while loops in Rust are pretty standard
+
+    let mut while_number = 3;
+
+    while while_number != 0 {
+        println!("[while]{while_number}");
+
+        while_number -= 1;
+    }
+
+    println!("LIFTOFF!!");
 }
