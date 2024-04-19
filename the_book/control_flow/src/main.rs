@@ -94,4 +94,22 @@ fn main() {
     }
 
     println!("LIFTOFF!!");
+
+    // NOTE: for loops also pretty standard
+    // they look like the for-in loops in JavaScript
+
+    let a = [10, 20, 30, 40, 50];
+
+    for element in a {
+        println!("the value is: {element}");
+    }
+
+    // NOTE: A pretty neat feature is the Range operator
+    // looks like the spread operator in JavaScript
+    // notice that Range ends before the last number specified
+
+    for while_number in (1..4).rev() {
+        println!("{while_number}!");
+    }
+    println!("[for loop]LIFTOFF!!!")
 }
