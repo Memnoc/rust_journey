@@ -40,4 +40,46 @@ fn main() {
 
     // FIX: this cannot be
     // let number = if condition {5} else {"six"};
+
+    // NOTE: loops are very concise and expressed
+    // with the keyword loop
+
+    let mut counter = 0;
+
+    let result = loop {
+        counter += 1;
+
+        if counter == 10 {
+            println!("[loop]counter is {counter}");
+            break counter * 2;
+        }
+    };
+
+    println!("[loop]The result is {result}");
+
+    // INFO: in Rust, loops can have labels
+    // how freaking awesome is that?!
+    //PERF: what labels do is applying the keywords break and continue
+    // to the labeled loop. This is useful because by default those
+    // keywords apply to the inner loop only (when you have an outer one)
+
+    let mut count = 0;
+    'counting_up: loop {
+        println!("[outer]count = {count}");
+        let mut remaining = 10;
+
+        loop {
+            println!("[inner]remaining = {remaining}");
+            if remaining == 9 {
+                break;
+            }
+            if count == 2 {
+                break 'counting_up;
+            }
+            remaining -= 1;
+        }
+
+        count += 1;
+    }
+    println!("End count = {count}");
 }
