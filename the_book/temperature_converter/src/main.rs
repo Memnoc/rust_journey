@@ -1,8 +1,10 @@
 // NOTE:
+// Here's the formulas to convert both temperatures
 // temp = (temp * 9 / 5) + 32; for Celsius
 // temp = ((temp - 32) * 5) / 9; for Farenheit
+
 use std::io;
-use std::io::Write; // Ensure flush is available
+use std::io::Write;
 
 fn convert_temperature(temp: f32, unit: &str) -> Result<f32, String> {
     match unit {
@@ -59,6 +61,5 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             _ => println!("Enter a correct unit (C or F)"),
         }
     }
-
     Ok(())
 }
