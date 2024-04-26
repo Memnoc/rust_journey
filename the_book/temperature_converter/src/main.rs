@@ -46,6 +46,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 enum TemperatureError {
     InvalidUnit,
     OutOfRange,
+    ReadError(String),
 }
 fn convert_temperature(temp: f32, unit: &str) -> Result<f32, TemperatureError> {
     if temp < -273.15 {
@@ -58,16 +59,21 @@ fn convert_temperature(temp: f32, unit: &str) -> Result<f32, TemperatureError> {
     }
 }
 
-fn read_temperature(prompt: &str) -> Result<f32, io::Error> {
-    loop {
-        print!("{prompt}");
-        io::stdout().flush()?;
-        let mut temperature = String::new();
-        io::stdin().read_line(&mut temperature)?;
+fn read_temperature(prompt: &str) -> Result<f32, TemperatureError> {
+    print!("{prompt}");
+    io::stdout().flush().unwrap();
+    let mut temperature = String::new();
 
-        match temperature.trim().parse() {
-            Ok(num) => return Ok(num),
-            Err(_) => println!("Please enter a valid number"),
-        }
+    if io::stdin().read_line(&mut temperature).is_err() {
+        return Err(TemperatureError::ReadError(
+            "Failed to read temperature.".to_string(),
+        ));
+    }
+
+    match temperature.trim().parse() {
+        Ok(num) => Ok(num),
+        Err(_) => Err(TemperatureError::ReadError(
+            "Invalid temperature format.".to_string(),
+        )),
     }
 }
