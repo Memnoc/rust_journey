@@ -5,34 +5,6 @@
 use std::io;
 use std::io::Write;
 
-#[derive(Debug)]
-enum TemperatureError {
-    InvalidUnit,
-    OtherErorr(String),
-}
-
-fn convert_temperature(temp: f32, unit: &str) -> Result<f32, TemperatureError> {
-    match unit {
-        "C" => Ok((temp * 9.0 / 5.0) + 32.0),
-        "F" => Ok((temp - 32.0) * 5.0 / 9.0),
-        _ => Err(TemperatureError::InvalidUnit),
-    }
-}
-
-fn read_temperature(prompt: &str) -> Result<f32, io::Error> {
-    loop {
-        print!("{prompt}");
-        io::stdout().flush()?;
-        let mut temperature = String::new();
-        io::stdin().read_line(&mut temperature)?;
-
-        match temperature.trim().parse() {
-            Ok(num) => return Ok(num),
-            Err(_) => println!("Please enter a valid number"),
-        }
-    }
-}
-
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     println!("== Temperature Converter ==");
     println!("Type 'Q' at any prompt to quit.");
@@ -67,4 +39,35 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         }
     }
     Ok(())
+}
+
+//NOTE: custom errors
+#[derive(Debug)]
+enum TemperatureError {
+    InvalidUnit,
+    OutOfRange,
+}
+fn convert_temperature(temp: f32, unit: &str) -> Result<f32, TemperatureError> {
+    if temp < -273.15 {
+        return Err(TemperatureError::OutOfRange);
+    }
+    match unit {
+        "C" => Ok((temp * 9.0 / 5.0) + 32.0),
+        "F" => Ok((temp - 32.0) * 5.0 / 9.0),
+        _ => Err(TemperatureError::InvalidUnit),
+    }
+}
+
+fn read_temperature(prompt: &str) -> Result<f32, io::Error> {
+    loop {
+        print!("{prompt}");
+        io::stdout().flush()?;
+        let mut temperature = String::new();
+        io::stdin().read_line(&mut temperature)?;
+
+        match temperature.trim().parse() {
+            Ok(num) => return Ok(num),
+            Err(_) => println!("Please enter a valid number"),
+        }
+    }
 }
