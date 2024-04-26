@@ -2,15 +2,20 @@
 // Here's the formulas to convert both temperatures
 // temp = (temp * 9 / 5) + 32; for Celsius
 // temp = ((temp - 32) * 5) / 9; for Farenheit
-
 use std::io;
 use std::io::Write;
 
-fn convert_temperature(temp: f32, unit: &str) -> Result<f32, String> {
+#[derive(Debug)]
+enum TemperatureError {
+    InvalidUnit,
+    OtherErorr(String),
+}
+
+fn convert_temperature(temp: f32, unit: &str) -> Result<f32, TemperatureError> {
     match unit {
         "C" => Ok((temp * 9.0 / 5.0) + 32.0),
         "F" => Ok((temp - 32.0) * 5.0 / 9.0),
-        _ => Err("Please enter the correct unit".to_string()),
+        _ => Err(TemperatureError::InvalidUnit),
     }
 }
 
@@ -54,7 +59,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                         if unit == "C" { "F" } else { "C" },
                         converted
                     ),
-                    Err(e) => println!("{}", e),
+                    Err(e) => println!("{:#?}", e),
                 },
                 Err(_) => println!("Failed to read temperature."),
             },
