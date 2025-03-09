@@ -1,7 +1,7 @@
 # Rust Journey
 
 I set gave myself a year to become proficient in Rust.
-The language, very difficult for me, fascinates me, and it encapsualates (OOP joke alert) all the principles I would like to see in a language.
+The language, very difficult for me, fascinates me, and it encapsulates (OOP joke alert) all the principles I would like to see in a language.
 
 These are my loose notes and some digging into the source code while I practice the fundamentals
 
