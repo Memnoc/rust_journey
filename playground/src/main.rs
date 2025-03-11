@@ -30,8 +30,8 @@ fn main() {
         let s1 = String::from("hello");
         let s2 = s1; // s1 dropped out of scope now
 
-        println!("{s1}, world"); // cannot be used here
-                                 // the data has been "moved" from s1 to s2
+        // println!("{s1}, world"); // cannot be used here
+        // the data has been "moved" from s1 to s2
     }
     {
         // FIX: same example but fixed
@@ -58,7 +58,7 @@ fn main() {
                             // s value is moved into the function
                             // s (alone) is no longer valid
 
-        println!("{s}"); // error
+        // println!("{s}"); // error
         let x = 5; // x into scope
 
         makes_copy(x); // x moved into the function
@@ -76,4 +76,24 @@ fn main() {
         // some_integer in scope
         println!("some_integer");
     } // some_integepr goes out of scope but that's it (popped out of the stack, no drop())
+    {
+        // INFO: return values can transfer ownership
+        let s1 = gives_ownership(); // gives_ownership moves its return to s1
+
+        let s2 = String::from("s2"); // s2 into scope
+
+        let s3 = takes_and_gives_back(s2); // s2 moves into the function
+                                           // s3 gives back its ownership to s3 by returning
+        println!("s3 taking ownership of = {s3}");
+        fn gives_ownership() -> String {
+            let some_string = String::from("yours");
+
+            some_string // here the function returns, giving ownershipt to s1
+        }
+
+        // NOTE: takes a string but also gives it back
+        fn takes_and_gives_back(a_string: String) -> String {
+            a_string
+        }
+    }
 }
