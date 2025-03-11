@@ -96,4 +96,21 @@ fn main() {
             a_string
         }
     }
+    {
+        // INFO: let's see how borrowing helps the situation
+        let s1 = String::from("hello");
+
+        let len = calculate_len(&s1); // passing a reference of s1 to the function
+
+        println!("The length of '{s1} is {len}");
+
+        // NOTE: in the example is &String which creates a new object
+        // But should be &str which is a slice
+        //https://rust-lang.github.io/rust-clippy/master/index.html#ptr_arg
+        fn calculate_len(s: &String) -> usize {
+            // function borrows s1, does stuff with it, and
+            // then returns the value - no ownership taken
+            s.len()
+        }
+    }
 }
