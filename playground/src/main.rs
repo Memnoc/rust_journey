@@ -49,4 +49,31 @@ fn main() {
 
         println!("x = {x}, y = {y}");
     }
+
+    // HEADER: ownership with functions
+    {
+        let s = String::from("hello"); // in scope
+
+        takes_ownership(s); // function takes ownership of s
+                            // s value is moved into the function
+                            // s (alone) is no longer valid
+
+        println!("{s}"); // error
+        let x = 5; // x into scope
+
+        makes_copy(x); // x moved into the function
+                       // can still use x because it's Copy (trait) and stack
+        println!("{x}");
+    }
+
+    fn takes_ownership(some_string: String) {
+        // some_string in scope
+        println!("some_string");
+    } // some_string out of scope and drop() is called
+      // memory is freed
+
+    fn makes_copy(some_integer: i32) {
+        // some_integer in scope
+        println!("some_integer");
+    } // some_integepr goes out of scope but that's it (popped out of the stack, no drop())
 }
